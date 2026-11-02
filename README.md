@@ -1,4 +1,4 @@
-# Lay's Crunch Experience
+﻿# Lay's Crunch Experience
 
 A scroll-driven, 3D flavor showcase for Lay's chips: a cinematic preloader, a hero carousel of real 3D bags, a story section, a flavor wall with a Build-a-Box shop, and "The Rack". It runs in the browser on Three.js, GSAP and Lenis.
 
@@ -9,6 +9,12 @@ A scroll-driven, 3D flavor showcase for Lay's chips: a cinematic preloader, a he
 | Preloader | Hero |
 |---|---|
 | ![Preloader](screenshots/preloader.png) | ![Hero](screenshots/hero.png) |
+
+## Docs
+
+- [Pseudocode](PSEUDOCODE.md)
+- [Prompts](PROMPTS.md)
+- [How we did it](HOW-WE-DID-IT.md)
 
 ## Stack
 
@@ -102,3 +108,4 @@ The site was built iteratively with Claude Code. The prompts below are paraphras
 ## Run it yourself
 
 The source is private. If you have access: `npm install`, then `npm run dev`.
+
