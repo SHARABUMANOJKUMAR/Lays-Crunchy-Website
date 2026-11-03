@@ -3,7 +3,9 @@
 Place your custom packet artwork files here!
 
 ## Supported Naming & Formats
+
 File naming corresponds to each flavor's ID:
+
 - `flamin-hot.png` (or `.jpg`, `.webp`)
 - `classic.png`
 - `sour-cream.png`
@@ -15,6 +17,7 @@ File naming corresponds to each flavor's ID:
 - `bacon-grilled.png`
 
 ## Recommended Specs
+
 - **Dimensions:** `1024 x 1536 px` (Aspect ratio 2:3)
 - **Format:** PNG (with transparent background) or high-quality JPG / WebP
 - **Artwork Layout:**
@@ -23,4 +26,3 @@ File naming corresponds to each flavor's ID:
   - Bottom ~110px: Bottom crimped seal area
 
 If any flavor image file is missing, the application automatically uses the procedural high-res fallback canvas texture.
-

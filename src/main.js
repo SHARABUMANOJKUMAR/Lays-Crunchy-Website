@@ -10,6 +10,7 @@ import { FlavorWall } from './modules/flavorWall.js';
 import { BuildABox } from './modules/buildABox.js';
 import { TheRack } from './modules/theRack.js';
 import { CartDrawer } from './modules/cartDrawer.js';
+import { cartStore } from './domain/cartStore.js';
 import { audioService } from './services/audioService.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -110,7 +111,7 @@ class App {
   }
 
   setupNavigation() {
-    // Nav tabs smooth scroll
+    // 1. Desktop Nav tabs smooth scroll
     const navTabs = document.querySelectorAll('.nav-tab-btn');
     navTabs.forEach(tab => {
       tab.addEventListener('click', (e) => {
@@ -126,7 +127,74 @@ class App {
       });
     });
 
-    // "First dibs" CTA
+    // 2. Mobile & Tablet Hamburger Navigation
+    const hamburgerBtn = document.getElementById('nav-hamburger-btn');
+    const mobileDrawer = document.getElementById('mobile-nav-drawer');
+    const mobileBackdrop = document.getElementById('mobile-nav-backdrop');
+    const mobileCloseBtn = document.getElementById('mobile-nav-close-btn');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const mobileCartTrigger = document.getElementById('mobile-cart-trigger');
+
+    const toggleMobileNav = (open) => {
+      if (!mobileDrawer) return;
+      const isOpen = open !== undefined ? open : !mobileDrawer.classList.contains('open');
+      mobileDrawer.classList.toggle('open', isOpen);
+      if (hamburgerBtn) {
+        hamburgerBtn.classList.toggle('active', isOpen);
+        hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+      }
+      document.body.classList.toggle('mobile-nav-locked', isOpen);
+      audioService.playClick();
+    };
+
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener('click', () => toggleMobileNav());
+    }
+    if (mobileCloseBtn) {
+      mobileCloseBtn.addEventListener('click', () => toggleMobileNav(false));
+    }
+    if (mobileBackdrop) {
+      mobileBackdrop.addEventListener('click', () => toggleMobileNav(false));
+    }
+
+    // Mobile nav link tap: scroll to target, update active state & close drawer
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          audioService.playClick();
+          toggleMobileNav(false);
+          setTimeout(() => {
+            this.lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 });
+          }, 250);
+        }
+        mobileLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    // Mobile Cart Trigger inside Mobile Menu
+    if (mobileCartTrigger) {
+      mobileCartTrigger.addEventListener('click', () => {
+        toggleMobileNav(false);
+        setTimeout(() => {
+          cartStore.openCart();
+        }, 200);
+      });
+    }
+
+    // Escape key listener for accessible dismissal of drawers
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (mobileDrawer && mobileDrawer.classList.contains('open')) {
+          toggleMobileNav(false);
+        }
+      }
+    });
+
+    // 3. "First dibs" CTA
     const dibsBtn = document.getElementById('nav-first-dibs-btn');
     if (dibsBtn) {
       dibsBtn.addEventListener('click', () => {

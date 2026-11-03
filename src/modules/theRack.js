@@ -15,7 +15,7 @@ export class TheRack {
     this.dialContainer = document.getElementById('rack-dial-track');
     this.dialCounter = document.getElementById('rack-current-counter');
     this.activeFlavorLabel = document.getElementById('rack-active-name');
-    
+
     this.activeIndex = 2; // Default Barbecue (03) as in screenshot
     this.isDraggingDial = false;
     this.dragStartX = 0;
@@ -52,7 +52,7 @@ export class TheRack {
 
       this.dialContainer.addEventListener('pointerup', (e) => {
         this.isDraggingDial = false;
-        try { this.dialContainer.releasePointerCapture(e.pointerId); } catch (_) {}
+        try { this.dialContainer.releasePointerCapture(e.pointerId); } catch (_) { }
       });
     }
   }
@@ -123,7 +123,7 @@ export class TheRack {
       const tick = document.createElement('div');
       const isMajor = i % 10 === 0;
       tick.className = `dial-tick ${isMajor ? 'major' : ''}`;
-      
+
       if (isMajor) {
         const flavorIdx = i / 10;
         if (flavorIdx < FLAVORS.length) {

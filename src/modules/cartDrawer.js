@@ -37,6 +37,14 @@ export class CartDrawer {
     this.init();
   }
 
+  openCart() {
+    cartStore.openCart();
+  }
+
+  closeCart() {
+    cartStore.closeCart();
+  }
+
   init() {
     // 1. Subscribe to cart state updates
     cartStore.subscribe((state) => {
@@ -111,7 +119,7 @@ export class CartDrawer {
       return;
     }
 
-    this.btnDetectLocation.innerHTML = `<span>⏳ Detecting...</span>`;
+    this.btnDetectLocation.innerHTML = `<span class="radar-dot active"></span><span>Detecting GPS...</span>`;
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -119,7 +127,8 @@ export class CartDrawer {
         if (locInput) {
           locInput.value = `📍 GPS Coordinates: ${latitude.toFixed(4)}° N, ${longitude.toFixed(4)}° E (Auto-detected location, Bangalore, India)`;
         }
-        this.btnDetectLocation.innerHTML = `<span>✓ Location Set</span>`;
+        this.btnDetectLocation.innerHTML = `<span class="radar-dot set"></span><span>✓ Location Set</span>`;
+        this.btnDetectLocation.classList.add('is-set');
         audioService.playClick();
       },
       () => {
@@ -127,7 +136,8 @@ export class CartDrawer {
         if (locInput) {
           locInput.value = `📍 Sector 4, HSR Layout, Bengaluru, Karnataka - 560102`;
         }
-        this.btnDetectLocation.innerHTML = `<span>✓ Location Set</span>`;
+        this.btnDetectLocation.innerHTML = `<span class="radar-dot set"></span><span>✓ Location Set</span>`;
+        this.btnDetectLocation.classList.add('is-set');
       },
       { timeout: 7000 }
     );
@@ -173,7 +183,8 @@ export class CartDrawer {
     cartStore.closeCart();
     this.checkoutForm.reset();
     if (this.btnDetectLocation) {
-      this.btnDetectLocation.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg> Auto-Detect`;
+      this.btnDetectLocation.classList.remove('is-set');
+      this.btnDetectLocation.innerHTML = `<span class="radar-dot"></span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg><span>Auto-Detect GPS</span>`;
     }
 
     setTimeout(() => {
