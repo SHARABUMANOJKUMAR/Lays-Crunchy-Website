@@ -186,3 +186,11 @@ lays-crunchy-website/
 - **Concept & Inspiration:** Fan portfolio exploration inspired by Lay's branding and modern 3D creative web design.
 - **Trademarks & Artwork:** Lay's logo and product artwork belong to PepsiCo / Frito-Lay.
 - **Code License:** [MIT License](LICENSE) &copy; 2026 Sharabu Manoj Kumar.
+
+---
+
+<div align="center">
+
+### 💡 Developed by [Shaivika IT Technologies (shaivikaittechnologies.in)](https://shaivikaittechnologies.in)
+
+</div>
