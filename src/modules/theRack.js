@@ -80,9 +80,9 @@ export class TheRack {
           <img class="rack-bag-img" data-flavor="${flavor.id}" src="${imgSrc}" alt="${flavor.name}" />
         </div>
         <div class="rack-item-footer">
-          <div class="rack-flavor-index">${flavor.index} / 09</div>
+          <div class="rack-flavor-index">${flavor.index} / 09 &bull; <strong style="color:#FFCC00;">₹20</strong></div>
           <div class="rack-flavor-title">${flavor.name.toUpperCase()}</div>
-          <button class="rack-taste-btn" data-id="${flavor.id}">TASTE IT →</button>
+          <button class="rack-taste-btn" data-id="${flavor.id}">ORDER NOW ₹20 →</button>
         </div>
       `;
 

@@ -41,6 +41,7 @@ export class BuildABox {
         }
         audioService.playCrunch(0.6);
         cartStore.addBoxToCart();
+        cartStore.openCart();
       });
     }
   }
@@ -107,9 +108,9 @@ export class BuildABox {
       const isFull = state.filledSlotsCount === 3;
       this.addBasketBtn.classList.toggle('btn-ready', isFull);
       if (isFull) {
-        this.addBasketBtn.innerHTML = `<span>ADD TO BASKET</span> <span class="strike">$7.47</span> <span class="price-highlight">$5.98</span>`;
+        this.addBasketBtn.innerHTML = `<span>ADD TO BASKET</span> <span class="strike">₹60</span> <span class="price-highlight">₹50</span>`;
       } else {
-        this.addBasketBtn.innerHTML = `<span>PICK ${3 - state.filledSlotsCount} MORE</span> <span class="price-highlight">$5.98</span>`;
+        this.addBasketBtn.innerHTML = `<span>PICK ${3 - state.filledSlotsCount} MORE</span> <span class="price-highlight">₹50</span>`;
       }
     }
   }

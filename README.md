@@ -49,11 +49,25 @@ The **Lay's Crunchy Experience** is a high-performance, cinematic 3D digital sho
 - **Automated Studio Backdrop Cutouts:** Real-time canvas chroma processing removing solid studio backdrops to render crisp, transparent product cutouts.
 - **Tactile Quick-Add Action:** Instant tactile button feedback dropping bags directly into the customer's build tray.
 
-### 4. 📦 Build-a-Box Concept Store (`Build-a-Box`)
-- **Interactive Turntable Tray:** 3D circular turntable displaying 3 custom chosen flavor slots with individual remove triggers.
-- **Live Bundle Pricing Engine:** Real-time calculation showing instant savings:
-  $$\text{Base Total: } \$7.47 \quad\longrightarrow\quad \text{Bundle Price: } \mathbf{\$5.98} \quad (\text{Save } \$1.49)$$
-- **Slide-out Cart Drawer:** Responsive basket drawer with quantity modifiers, live subtotal updates, and tactile checkout notifications.
+### 4. 🛒 E-Commerce Ordering System & Build-a-Box (`₹ Pricing & Checkout`)
+- **Indian Rupee Currency (`₹`):** All pricing across the storefront, cards, drawer, and invoices is displayed in Rupees (`₹`).
+- **Pocket-Friendly Pricing Model:**
+  - **Single Flavor Packet:** **₹20** (NET WT. 50g)
+  - **Build-a-Box 3-Pack Saver Bundle:** **₹50** (Regular ₹60 &bull; Save ₹10 instantly!)
+  - **Delivery Promotion:** 100% **FREE Express Delivery**
+- **Complete Delivery Checkout Drawer:**
+  - **Full Name \***
+  - **Mobile Number \*:** 10-digit validation with auto-formatting
+  - **Email Address \*:** Order receipt confirmation
+  - **Exact Location for Delivery \*:** Integrated with **GPS Auto-Detect Location button** using the HTML5 Geolocation API with graceful fallback
+  - **Special Message / Instructions (Optional):** Delivery notes (e.g., "Leave with security", "Ring the bell")
+  - **Payment Methods:** Flexible payment selection between **Cash on Delivery (COD)** and **UPI on Delivery** (GPay, PhonePe, Paytm QR scanner).
+- **3D Animated Order Confirmation & Live Tracking Modal:**
+  - Real-time generated unique **Order ID** (e.g. `#LAYS-557573`)
+  - **3-Step Live Delivery Tracker Timeline:** *Order Confirmed (Verified)* &rarr; *Flavor Packaging (Nitro-cushion sealing in progress)* &rarr; *Express Delivery (Estimated 30-40 mins)*
+  - Transparent summary card displaying recipient, contact, full address, and total amount
+  - **Print Receipt** trigger & tactile **Order More Chips** loop
+  - Persisted in browser `localStorage` under `lays_orders` with Indian Standard Time (IST) timestamps
 
 ### 5. 🪝 The Rack (`Range`)
 - **Metallic Hanging Rod:** Bags hanging from realistic chrome clips and tags (`01` through `09`).

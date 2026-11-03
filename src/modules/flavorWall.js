@@ -40,17 +40,23 @@ export class FlavorWall {
 
     card.innerHTML = `
       <div class="wall-card-inner">
-        <div class="wall-card-title">${flavor.name.toUpperCase()}</div>
+        <div class="wall-card-header">
+          <div class="wall-card-title">${flavor.name.toUpperCase()}</div>
+          <div class="wall-card-price">₹20</div>
+        </div>
         <div class="wall-bag-container">
           <img class="wall-bag-img" data-flavor="${flavor.id}" src="${imgSrc}" alt="${flavor.name}" />
           <div class="wall-bag-shadow"></div>
         </div>
-        <button class="wall-add-btn" aria-label="Add ${flavor.name} to box" data-id="${flavor.id}">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-        </button>
+        <div class="wall-card-footer">
+          <span class="wall-unit-tag">NET WT. 50g &bull; ₹20</span>
+          <button class="wall-add-btn" aria-label="Add ${flavor.name} to box" data-id="${flavor.id}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
       </div>
     `;
 
@@ -71,12 +77,13 @@ export class FlavorWall {
       card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
     });
 
-    // Add button handler
+    // Add button handler - adds 1 bag (₹20) directly to cart and opens drawer
     const addBtn = card.querySelector('.wall-add-btn');
     addBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       audioService.playCrunch(0.4);
-      cartStore.addFlavorToSlot(flavor.id);
+      cartStore.addItem(flavor.id, 1);
+      cartStore.openCart();
 
       // Tactile button bounce
       addBtn.classList.add('pop-animate');

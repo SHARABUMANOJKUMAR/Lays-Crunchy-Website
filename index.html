@@ -158,7 +158,7 @@
             <h2 class="box-title-massive">
               BUILD YOUR <br>
               <span class="badge-num">3</span> PACK &amp;<br>
-              SAVE $1.49
+              SAVE ₹10
             </h2>
 
             <div id="box-flavor-grid" class="box-flavor-grid"></div>
@@ -173,10 +173,10 @@
             <div class="box-cta-wrapper">
               <button id="box-add-basket-btn" class="box-add-basket-btn">
                 <span>ADD TO BASKET</span>
-                <span class="strike">$7.47</span>
-                <span class="price-highlight">$5.98</span>
+                <span class="strike">₹60</span>
+                <span class="price-highlight">₹50</span>
               </button>
-              <span class="box-footer-disclaimer">CONCEPT ONLY &mdash; NOTHING IS CHARGED</span>
+              <span class="box-footer-disclaimer">EXPRESS CRUNCH DELIVERY &bull; FRESH FROM THE LAB</span>
             </div>
           </div>
         </div>
@@ -209,24 +209,168 @@
       </section>
     </main>
 
-    <!-- Slide-out Cart Drawer -->
+    <!-- Slide-out Cart & Checkout Drawer -->
     <div id="cart-overlay"></div>
-    <aside id="cart-drawer">
+    <aside id="cart-drawer" class="ecommerce-drawer">
       <div class="cart-drawer-header">
-        <h3 class="cart-drawer-title">YOUR BASKET</h3>
+        <div>
+          <h3 class="cart-drawer-title">YOUR BASKET</h3>
+          <span class="cart-drawer-subtitle">Each Packet ₹20 &bull; 3-Pack ₹50</span>
+        </div>
         <button id="cart-close-btn" aria-label="Close basket">&times;</button>
       </div>
 
-      <div id="cart-items-list"></div>
+      <!-- Items List -->
+      <div id="cart-items-list" class="cart-items-scroll"></div>
 
-      <div class="cart-drawer-footer">
-        <div class="cart-subtotal-row">
-          <span>SUBTOTAL</span>
-          <span id="cart-subtotal">$0.00</span>
+      <!-- Order Details Form -->
+      <form id="checkout-order-form" class="checkout-form" onsubmit="return false;">
+        <div class="form-section-title">
+          <span>DELIVERY DETAILS</span>
+          <span class="delivery-badge">⚡ EXPRESS 35 MINS</span>
         </div>
-        <button id="cart-checkout-btn">CHECKOUT</button>
-      </div>
+
+        <div class="form-group">
+          <label for="order-name">Full Name *</label>
+          <input type="text" id="order-name" required placeholder="Enter your full name" autocomplete="name" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="order-phone">Mobile Number *</label>
+            <input type="tel" id="order-phone" required pattern="[0-9]{10}" placeholder="10-digit mobile" maxlength="10" autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="order-email">Email Address *</label>
+            <input type="email" id="order-email" required placeholder="your.email@domain.com" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-with-action">
+            <label for="order-location">Exact Location for Delivery *</label>
+            <button type="button" id="btn-detect-location" class="btn-detect-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+              Auto-Detect
+            </button>
+          </div>
+          <textarea id="order-location" required rows="2" placeholder="House/Flat No, Apartment, Street, Landmark, City & Pincode"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="order-message">Special Message / Instructions (Optional)</label>
+          <input type="text" id="order-message" placeholder="e.g. Leave with security / Ring the bell" />
+        </div>
+
+        <div class="payment-selection">
+          <label class="payment-option selected">
+            <input type="radio" name="payment-method" value="COD" checked />
+            <span class="payment-label">
+              <strong>Cash on Delivery (COD)</strong>
+              <small>Pay ₹ upon packet arrival</small>
+            </span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment-method" value="UPI" />
+            <span class="payment-label">
+              <strong>UPI on Delivery</strong>
+              <small>GPay / PhonePe / Paytm scanner</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="cart-drawer-footer">
+          <div class="cart-summary-breakdown">
+            <div class="summary-line">
+              <span>Items Total</span>
+              <span id="cart-subtotal">₹0.00</span>
+            </div>
+            <div class="summary-line highlight-green">
+              <span>Delivery Fee</span>
+              <span>FREE</span>
+            </div>
+            <div class="summary-line total-line">
+              <span>Total Payable</span>
+              <span id="cart-grand-total">₹0.00</span>
+            </div>
+          </div>
+          <button type="submit" id="cart-checkout-btn" class="btn-place-order">
+            <span id="order-btn-text">CONFIRM &amp; PLACE ORDER</span>
+            <span id="order-btn-amount">₹0.00</span>
+          </button>
+        </div>
+      </form>
     </aside>
+
+    <!-- Order Confirmation & Live Tracking Modal -->
+    <div id="order-success-modal" class="order-modal-backdrop">
+      <div class="order-modal-card">
+        <div class="modal-success-icon">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        
+        <h2 class="modal-title">ORDER CONFIRMED! 🎉</h2>
+        <p class="modal-subtitle">Your crunch package is being sealed with flavor freshness!</p>
+
+        <div class="order-id-badge">
+          <span>ORDER ID:</span>
+          <strong id="modal-order-id">#LAYS-849201</strong>
+        </div>
+
+        <!-- Live Delivery Tracker Timeline -->
+        <div class="order-tracker-timeline">
+          <div class="tracker-step done">
+            <div class="step-dot">✓</div>
+            <div class="step-info">
+              <strong>Order Confirmed</strong>
+              <small>Just now &bull; Verified</small>
+            </div>
+          </div>
+          <div class="tracker-step active">
+            <div class="step-dot">●</div>
+            <div class="step-info">
+              <strong>Flavor Packaging</strong>
+              <small>Nitro-cushion sealing in progress</small>
+            </div>
+          </div>
+          <div class="tracker-step">
+            <div class="step-dot">○</div>
+            <div class="step-info">
+              <strong>Express Delivery</strong>
+              <small>Estimated in 30–40 mins</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customer & Order Summary -->
+        <div class="modal-order-summary">
+          <div class="summary-item">
+            <span>Recipient:</span>
+            <strong id="modal-customer-name">-</strong>
+          </div>
+          <div class="summary-item">
+            <span>Contact:</span>
+            <strong id="modal-customer-phone">-</strong>
+          </div>
+          <div class="summary-item">
+            <span>Delivery Address:</span>
+            <span id="modal-customer-location">-</span>
+          </div>
+          <div class="summary-item total-highlight">
+            <span>Total Amount:</span>
+            <strong id="modal-order-total">₹0.00 (COD)</strong>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="btn-print-receipt" class="btn-receipt">Print Receipt</button>
+          <button id="btn-close-success-modal" class="btn-continue">Order More Chips</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Cinematic Preloader Overlay -->
     <div id="preloader-overlay">
