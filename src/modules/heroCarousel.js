@@ -129,7 +129,7 @@ export class HeroCarousel {
 
     if (animate) {
       // Bold title entrance animation
-      gsap.fromTo(this.titleEl, 
+      gsap.fromTo(this.titleEl,
         { y: 35, opacity: 0, scale: 0.96 },
         { y: 0, opacity: 1, scale: 1, duration: 0.45, ease: 'power3.out' }
       );
