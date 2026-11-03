@@ -19,10 +19,29 @@ export class CartDrawer {
     this.cartSubtotalEl = document.getElementById('cart-subtotal');
     this.cartGrandTotalEl = document.getElementById('cart-grand-total');
     this.orderBtnAmountEl = document.getElementById('order-btn-amount');
+    this.checkoutBtn = document.getElementById('cart-checkout-btn');
     this.checkoutForm = document.getElementById('checkout-order-form');
     this.navCartPill = document.getElementById('nav-cart-pill');
     this.navCartCount = document.getElementById('nav-cart-count');
     this.btnDetectLocation = document.getElementById('btn-detect-location');
+
+    // Customer Form Inputs
+    this.inputName = document.getElementById('order-name');
+    this.inputPhone = document.getElementById('order-phone');
+    this.inputEmail = document.getElementById('order-email');
+    this.inputLocation = document.getElementById('order-location');
+    this.inputMessage = document.getElementById('order-message');
+    this.phoneContainer = document.querySelector('.phone-input-container');
+
+    // Form State Preservation
+    this.formData = {
+      name: '',
+      phone: '',
+      email: '',
+      location: '',
+      message: '',
+      paymentMethod: 'COD'
+    };
 
     // Success Modal elements
     this.successModal = document.getElementById('order-success-modal');
@@ -51,7 +70,14 @@ export class CartDrawer {
       this.updateUI(state);
     });
 
-    // 2. Open / Close triggers
+    // 2. Prevent click propagation inside drawer to prevent accidental closes
+    if (this.drawerEl) {
+      this.drawerEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
+    // 3. Open / Close triggers
     if (this.navCartPill) {
       this.navCartPill.addEventListener('click', () => {
         audioService.playClick();
@@ -72,24 +98,86 @@ export class CartDrawer {
       });
     }
 
-    // 3. Location Auto-Detect
+    // 4. Form State Synchronization & Keyboard Navigation
+    const bindSync = (el, field) => {
+      if (!el) return;
+      el.addEventListener('input', (e) => {
+        this.formData[field] = e.target.value;
+      });
+    };
+    bindSync(this.inputName, 'name');
+    bindSync(this.inputPhone, 'phone');
+    bindSync(this.inputEmail, 'email');
+    bindSync(this.inputLocation, 'location');
+    bindSync(this.inputMessage, 'message');
+
+    // Phone container click focus
+    if (this.phoneContainer && this.inputPhone) {
+      this.phoneContainer.addEventListener('click', () => {
+        this.inputPhone.focus();
+      });
+    }
+
+    // Keyboard Enter flow across fields
+    if (this.inputName) {
+      this.inputName.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.inputPhone?.focus();
+        }
+      });
+    }
+
+    if (this.inputPhone) {
+      this.inputPhone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.inputEmail?.focus();
+        }
+      });
+    }
+
+    if (this.inputEmail) {
+      this.inputEmail.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          this.inputLocation?.focus();
+        }
+      });
+    }
+
+    // Crucial: In the location textarea, Enter should insert a newline, NOT submit the form!
+    if (this.inputLocation) {
+      this.inputLocation.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.stopPropagation();
+        }
+      });
+    }
+
+    // 5. Location Auto-Detect
     if (this.btnDetectLocation) {
       this.btnDetectLocation.addEventListener('click', () => {
         this.detectLocation();
       });
     }
 
-    // 4. Payment selection radio styling
+    // 6. Payment selection radio styling and state
     const paymentOptions = document.querySelectorAll('.payment-option');
     paymentOptions.forEach(opt => {
       opt.addEventListener('click', () => {
         paymentOptions.forEach(o => o.classList.remove('selected'));
         opt.classList.add('selected');
+        const radio = opt.querySelector('input[type="radio"]');
+        if (radio) {
+          radio.checked = true;
+          this.formData.paymentMethod = radio.value;
+        }
         audioService.playClick();
       });
     });
 
-    // 5. Submit Order Form
+    // 7. Submit Order Form
     if (this.checkoutForm) {
       this.checkoutForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -97,7 +185,14 @@ export class CartDrawer {
       });
     }
 
-    // 6. Success Modal buttons
+    if (this.checkoutBtn) {
+      this.checkoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.handleOrderSubmission();
+      });
+    }
+
+    // 8. Success Modal buttons
     if (this.btnCloseSuccessModal) {
       this.btnCloseSuccessModal.addEventListener('click', () => {
         audioService.playClick();
@@ -113,7 +208,7 @@ export class CartDrawer {
   }
 
   detectLocation() {
-    const locInput = document.getElementById('order-location');
+    const locInput = this.inputLocation || document.getElementById('order-location');
     if (!navigator.geolocation) {
       alert('Geolocation is not supported by your browser.');
       return;
@@ -125,7 +220,9 @@ export class CartDrawer {
       (pos) => {
         const { latitude, longitude } = pos.coords;
         if (locInput) {
-          locInput.value = `📍 GPS Coordinates: ${latitude.toFixed(4)}° N, ${longitude.toFixed(4)}° E (Auto-detected location, Bangalore, India)`;
+          const val = `📍 GPS Coordinates: ${latitude.toFixed(4)}° N, ${longitude.toFixed(4)}° E (Auto-detected location, Bangalore, India)`;
+          locInput.value = val;
+          this.formData.location = val;
         }
         this.btnDetectLocation.innerHTML = `<span class="radar-dot set"></span><span>✓ Location Set</span>`;
         this.btnDetectLocation.classList.add('is-set');
@@ -134,7 +231,9 @@ export class CartDrawer {
       () => {
         // Fallback default city address simulation
         if (locInput) {
-          locInput.value = `📍 Sector 4, HSR Layout, Bengaluru, Karnataka - 560102`;
+          const val = `📍 Sector 4, HSR Layout, Bengaluru, Karnataka - 560102`;
+          locInput.value = val;
+          this.formData.location = val;
         }
         this.btnDetectLocation.innerHTML = `<span class="radar-dot set"></span><span>✓ Location Set</span>`;
         this.btnDetectLocation.classList.add('is-set');
@@ -150,24 +249,49 @@ export class CartDrawer {
       return;
     }
 
-    const name = document.getElementById('order-name').value.trim();
-    const phone = document.getElementById('order-phone').value.trim();
-    const email = document.getElementById('order-email').value.trim();
-    const location = document.getElementById('order-location').value.trim();
-    const message = document.getElementById('order-message').value.trim();
+    const name = (this.inputName ? this.inputName.value : this.formData.name).trim();
+    let rawPhone = (this.inputPhone ? this.inputPhone.value : this.formData.phone).trim();
+    const email = (this.inputEmail ? this.inputEmail.value : this.formData.email).trim();
+    const location = (this.inputLocation ? this.inputLocation.value : this.formData.location).trim();
+    const message = (this.inputMessage ? this.inputMessage.value : this.formData.message).trim();
 
-    if (!name || !phone || !email || !location) {
-      alert('Please fill out all required fields marked with *');
+    // Clean phone number: remove +91, spaces, dashes, brackets
+    let cleanPhone = rawPhone.replace(/^\+91/, '').replace(/[\s\-\(\)]/g, '');
+
+    if (!name) {
+      alert('Please enter your Full Name.');
+      this.inputName?.focus();
       return;
     }
 
-    if (phone.length !== 10 || isNaN(phone)) {
-      alert('Please enter a valid 10-digit mobile number.');
+    if (!cleanPhone || cleanPhone.length !== 10 || !/^\d{10}$/.test(cleanPhone)) {
+      alert('Please enter a valid 10-digit Indian mobile number.');
+      this.inputPhone?.focus();
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email)) {
+      alert('Please enter a valid email address (e.g. name@domain.com).');
+      this.inputEmail?.focus();
+      return;
+    }
+
+    if (!location) {
+      alert('Please enter your Exact Delivery Location or click Auto-Detect GPS.');
+      this.inputLocation?.focus();
       return;
     }
 
     // Place the order
-    const order = cartStore.placeOrder({ name, phone, email, location, message });
+    const order = cartStore.placeOrder({
+      name,
+      phone: cleanPhone,
+      email,
+      location,
+      message,
+      paymentMethod: this.formData.paymentMethod
+    });
     if (!order) return;
 
     audioService.playCrunch(0.85);
@@ -177,7 +301,18 @@ export class CartDrawer {
     if (this.modalCustomerName) this.modalCustomerName.textContent = order.customer.name;
     if (this.modalCustomerPhone) this.modalCustomerPhone.textContent = `+91 ${order.customer.phone}`;
     if (this.modalCustomerLocation) this.modalCustomerLocation.textContent = order.customer.location;
-    if (this.modalOrderTotal) this.modalOrderTotal.textContent = `₹${order.grandTotal.toFixed(2)} (Cash/UPI on Delivery)`;
+    const paymentLabel = this.formData.paymentMethod === 'UPI' ? 'UPI Scanner on Delivery' : 'Cash on Delivery (COD)';
+    if (this.modalOrderTotal) this.modalOrderTotal.textContent = `₹${order.grandTotal.toFixed(2)} (${paymentLabel})`;
+
+    // Reset formData
+    this.formData = {
+      name: '',
+      phone: '',
+      email: '',
+      location: '',
+      message: '',
+      paymentMethod: 'COD'
+    };
 
     // Close drawer and open confirmation modal
     cartStore.closeCart();

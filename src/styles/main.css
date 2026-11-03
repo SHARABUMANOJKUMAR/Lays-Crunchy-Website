@@ -1859,6 +1859,7 @@ body.mobile-nav-locked {
   border-radius: 12px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+  cursor: text;
 }
 
 .phone-input-container:focus-within {
@@ -1875,13 +1876,19 @@ body.mobile-nav-locked {
   padding: 0 10px 0 12px;
   border-right: 1.5px solid #E2E8F0;
   white-space: nowrap;
+  user-select: none;
+  cursor: default;
 }
 
 .phone-input-container input {
+  flex: 1;
+  min-width: 0;
+  width: 100% !important;
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 0 !important;
+  cursor: text;
 }
 
 .textarea-container textarea {

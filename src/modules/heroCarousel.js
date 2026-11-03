@@ -79,8 +79,20 @@ export class HeroCarousel {
       });
     }
 
-    // Keyboard navigation
+    // Keyboard navigation - strictly disabled when user is typing in inputs or cart is open
     window.addEventListener('keydown', (e) => {
+      const activeEl = document.activeElement;
+      const isInputFocused = activeEl && (
+        activeEl.tagName === 'INPUT' ||
+        activeEl.tagName === 'TEXTAREA' ||
+        activeEl.tagName === 'SELECT' ||
+        activeEl.isContentEditable
+      );
+      if (isInputFocused) return;
+
+      const cartDrawer = document.getElementById('cart-drawer');
+      if (cartDrawer && cartDrawer.classList.contains('open')) return;
+
       if (e.key === 'ArrowLeft') {
         this.prev();
         this.stopAutoplay();

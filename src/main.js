@@ -52,6 +52,8 @@ class App {
     this.buildABox = new BuildABox();
     this.theRack = new TheRack();
     this.cartDrawer = new CartDrawer();
+    window.cartStore = cartStore;
+    window.cartDrawer = this.cartDrawer;
 
     // 4. Setup Audio & Navigation Controls
     this.setupAudioToggle();
@@ -75,18 +77,18 @@ class App {
       duration: 0.8,
       ease: 'power3.out'
     })
-    .from('.hero-flavor-title', {
-      y: 60,
-      opacity: 0,
-      duration: 0.9,
-      ease: 'power3.out'
-    }, '-=0.4')
-    .from('.hero-bottom-right', {
-      x: 60,
-      opacity: 0,
-      duration: 0.7,
-      ease: 'power2.out'
-    }, '-=0.5');
+      .from('.hero-flavor-title', {
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: 'power3.out'
+      }, '-=0.4')
+      .from('.hero-bottom-right', {
+        x: 60,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power2.out'
+      }, '-=0.5');
   }
 
   setupAudioToggle() {

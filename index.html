@@ -287,7 +287,7 @@
 
     <!-- Slide-out Cart & Checkout Drawer -->
     <div id="cart-overlay"></div>
-    <aside id="cart-drawer" class="ecommerce-drawer">
+    <aside id="cart-drawer" class="ecommerce-drawer" data-lenis-prevent>
       <div class="cart-drawer-header">
         <div>
           <h3 class="cart-drawer-title">YOUR BASKET</h3>
@@ -296,12 +296,12 @@
         <button id="cart-close-btn" aria-label="Close basket">&times;</button>
       </div>
 
-      <div class="drawer-scroll-area">
+      <div class="drawer-scroll-area" data-lenis-prevent>
         <!-- Items List -->
         <div id="cart-items-list" class="cart-items-scroll"></div>
 
         <!-- Order Details Form -->
-        <form id="checkout-order-form" class="checkout-form" onsubmit="return false;">
+        <form id="checkout-order-form" class="checkout-form">
         <!-- Vibrant Colorful Delivery Banner -->
         <div class="form-section-banner">
           <div class="delivery-title-badge">
@@ -320,7 +320,7 @@
             <span>Full Name <strong class="req-star">*</strong></span>
           </label>
           <div class="input-container">
-            <input type="text" id="order-name" required placeholder="Enter your full name" autocomplete="name" />
+            <input type="text" id="order-name" required placeholder="Enter your full name" autocomplete="name" tabindex="1" />
           </div>
         </div>
 
@@ -332,7 +332,7 @@
             </label>
             <div class="input-container phone-input-container">
               <span class="country-code-pill">🇮🇳 +91</span>
-              <input type="tel" id="order-phone" required pattern="[0-9]{10}" placeholder="10-digit mobile" maxlength="10" autocomplete="tel" />
+              <input type="tel" id="order-phone" required placeholder="10-digit mobile" inputmode="numeric" autocomplete="tel" tabindex="2" />
             </div>
           </div>
           <div class="form-group">
@@ -341,7 +341,7 @@
               <span>Email Address <strong class="req-star">*</strong></span>
             </label>
             <div class="input-container">
-              <input type="email" id="order-email" required placeholder="your.email@domain.com" autocomplete="email" />
+              <input type="email" id="order-email" required placeholder="your.email@domain.com" autocomplete="email" tabindex="3" />
             </div>
           </div>
         </div>
@@ -352,14 +352,14 @@
               <span class="field-icon icon-red">📍</span>
               <span>Exact Location for Delivery <strong class="req-star">*</strong></span>
             </label>
-            <button type="button" id="btn-detect-location" class="btn-detect-loc" title="Detect location automatically via GPS">
+            <button type="button" id="btn-detect-location" class="btn-detect-loc" title="Detect location automatically via GPS" tabindex="-1">
               <span class="radar-dot"></span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
               <span>Auto-Detect GPS</span>
             </button>
           </div>
           <div class="input-container textarea-container">
-            <textarea id="order-location" required rows="2" placeholder="House/Flat No, Apartment/Building, Street, Landmark, City & Pincode"></textarea>
+            <textarea id="order-location" required rows="2" placeholder="House/Flat No, Apartment/Building, Street, Landmark, City & Pincode" tabindex="4"></textarea>
           </div>
         </div>
 
@@ -369,7 +369,7 @@
             <span>Special Message / Instructions (Optional)</span>
           </label>
           <div class="input-container">
-            <input type="text" id="order-message" placeholder="e.g. Ring doorbell, deliver hot & crispy!" />
+            <input type="text" id="order-message" placeholder="e.g. Ring doorbell, deliver hot & crispy!" tabindex="5" />
           </div>
         </div>
 
@@ -382,7 +382,7 @@
 
           <div class="payment-selection">
             <label class="payment-option payment-cod selected">
-              <input type="radio" name="payment-method" value="COD" checked />
+              <input type="radio" name="payment-method" value="COD" checked tabindex="6" />
               <div class="payment-card-body">
                 <div class="payment-icon-box cod-theme">
                   <span>💵</span>
@@ -399,7 +399,7 @@
             </label>
 
             <label class="payment-option payment-upi">
-              <input type="radio" name="payment-method" value="UPI" />
+              <input type="radio" name="payment-method" value="UPI" tabindex="7" />
               <div class="payment-card-body">
                 <div class="payment-icon-box upi-theme">
                   <span>📲</span>
@@ -436,7 +436,7 @@
               <span id="cart-grand-total" class="summary-val-total">₹0.00</span>
             </div>
           </div>
-          <button type="submit" id="cart-checkout-btn" class="btn-place-order">
+          <button type="submit" id="cart-checkout-btn" class="btn-place-order" tabindex="8">
             <span class="btn-shine-sweep"></span>
             <span id="order-btn-text">CONFIRM &amp; PLACE ORDER</span>
             <span id="order-btn-amount" class="order-btn-pill">₹0.00</span>
