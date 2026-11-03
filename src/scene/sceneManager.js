@@ -36,7 +36,7 @@ export class SceneManager {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(40, this.width / this.height, 0.1, 100);
-    this.camera.position.set(0, 0, 9.8);
+    this.updateCameraForDevice();
 
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -51,6 +51,25 @@ export class SceneManager {
     this.renderer.toneMappingExposure = 1.05;
 
     this.container.appendChild(this.renderer.domElement);
+  }
+
+  updateCameraForDevice() {
+    const aspect = this.width / this.height;
+    if (aspect < 0.8) {
+      // Mobile portrait
+      this.camera.position.set(0, 0.35, 9.8 + (0.8 - aspect) * 7.5);
+      this.camera.fov = 44;
+    } else if (aspect < 1.2) {
+      // Tablet
+      this.camera.position.set(0, 0.2, 10.5);
+      this.camera.fov = 42;
+    } else {
+      // Desktop / Laptop
+      this.camera.position.set(0, 0, 9.8);
+      this.camera.fov = 40;
+    }
+    this.camera.aspect = aspect;
+    this.camera.updateProjectionMatrix();
   }
 
   initLights() {
@@ -149,12 +168,14 @@ export class SceneManager {
   getStoryPose(progress) {
     // During story, hero bag zooms in and rotates for hotspot callouts
     // Progress 0..1 corresponds to chapters 1..4
+    const isMobile = this.width < 768;
     const rotY = progress * Math.PI * 1.8;
     const rotX = Math.sin(progress * Math.PI * 2) * 0.18;
-    const z = 2.4 + Math.sin(progress * Math.PI) * 0.8;
-    const x = 0.95; // shift to the right to leave room for story copy on left
-    const y = 0.1;
-    return { x, y, z, rotX, rotY, rotZ: 0.05, scale: 0.95 };
+    const z = isMobile ? 1.4 : (2.4 + Math.sin(progress * Math.PI) * 0.8);
+    const x = isMobile ? 0 : 0.95; // centered on mobile, right offset on desktop
+    const y = isMobile ? -0.2 : 0.1;
+    const scale = isMobile ? 0.72 : 0.95;
+    return { x, y, z, rotX, rotY, rotZ: 0.05, scale };
   }
 
   updateBagPoses(delta) {
@@ -224,8 +245,7 @@ export class SceneManager {
     window.addEventListener('resize', () => {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
-      this.camera.aspect = this.width / this.height;
-      this.camera.updateProjectionMatrix();
+      this.updateCameraForDevice();
       this.renderer.setSize(this.width, this.height);
       this.background.onResize(this.width, this.height);
     });

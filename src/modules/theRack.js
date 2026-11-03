@@ -29,6 +29,12 @@ export class TheRack {
     this.renderDialTicks();
     this.updateActiveFlavor(this.activeIndex);
 
+    window.addEventListener('pack-image-loaded', (e) => {
+      const { flavorId, src } = e.detail;
+      const img = this.railContainer.querySelector(`.rack-bag-img[data-flavor="${flavorId}"]`);
+      if (img) img.src = src;
+    });
+
     // Wheel drag interactions
     if (this.dialContainer) {
       this.dialContainer.addEventListener('pointerdown', (e) => {

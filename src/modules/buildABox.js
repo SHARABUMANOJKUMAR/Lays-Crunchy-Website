@@ -26,6 +26,12 @@ export class BuildABox {
       this.updateCounters(state);
     });
 
+    window.addEventListener('pack-image-loaded', (e) => {
+      const { flavorId, src } = e.detail;
+      const imgs = document.querySelectorAll(`[data-flavor="${flavorId}"]`);
+      imgs.forEach(img => { img.src = src; });
+    });
+
     if (this.addBasketBtn) {
       this.addBasketBtn.addEventListener('click', () => {
         const state = cartStore.getState();
