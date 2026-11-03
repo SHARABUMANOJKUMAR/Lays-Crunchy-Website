@@ -1,119 +1,188 @@
-# Lay's Crunch Experience
+<div align="center">
 
-A scroll-driven, 3D flavor showcase for Lay's chips: a cinematic preloader, a hero carousel of real 3D bags, a story section, a flavor wall with a Build-a-Box shop, and "The Rack". It runs in the browser on Three.js, GSAP and Lenis.
+# 🥔 Lay's Crunchy Experience &bull; 3D Showcase
 
-> Fan/portfolio project. Pack art and logo belong to their owners. 3D ingredient models are Sketchfab CC BY. The source code lives in a separate private repo.
+<p align="center">
+  <strong>An immersive, scroll-driven 3D web experience built with Three.js, GSAP, Lenis, and modern WebGL shaders.</strong>
+</p>
 
-## Screenshots
+[![Three.js](https://img.shields.io/badge/Three.js-r169-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
+[![GSAP](https://img.shields.io/badge/GSAP-3.12-green?style=for-the-badge&logo=greensock)](https://greensock.com/)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![Lenis](https://img.shields.io/badge/Smooth%20Scroll-Lenis-orange?style=for-the-badge)](https://github.com/darkroomengineering/lenis)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
-![Screenshot 1](screenshots/screen-1.png)
+<br/>
 
-![Screenshot 2](screenshots/screen-2.png)
+![Hero Carousel Showcase](screenshots/screen-1.png)
 
-![Screenshot 3](screenshots/screen-3.png)
+</div>
 
-![Screenshot 4](screenshots/screen-4.png)
+---
 
-![Screenshot 5](screenshots/screen-5.png)
+## 🚀 Overview
 
-![Screenshot 6](screenshots/screen-6.png)
+The **Lay's Crunchy Experience** is a high-performance, cinematic 3D digital showcase celebrating the iconic flavors of Lay's potato chips. Built with cutting-edge creative web technologies, it features authentic 3D pillow snack bags, dynamic flavor-themed concentric shaders, smooth momentum scrolling, and procedural audio synthesis.
 
-## Docs
+---
 
-- [Pseudocode](PSEUDOCODE.md)
-- [Prompts](PROMPTS.md)
-- [How we did it](HOW-WE-DID-IT.md)
+## ✨ Key Features & 3D Interactive Highlights
 
-## Stack
+### 1. 🌟 Hero 3D Arc Carousel (`Flavors`)
+- **Arc Layout Mathematics:** 3D pillow bags are positioned along a curved orbital arc using trigonometric interpolation (`lerp`) and circular wrap logic.
+- **Dynamic Concentric Rings Shader:** Custom GLSL radial ripple fragment shader radiating outward from behind the hero bag, smoothly blending color palettes between flavor selections.
+- **Fluid Control Scheme:** Smooth drag-to-browse pointer interactions, keyboard arrow navigation, tactile circular controls, and an automated autoplay showcase mode.
+- **Dynamic Retheming:** Real-time CSS variable updates (`--flavor-color`, `--flavor-deep`, `--flavor-glow`, `--flavor-ink`) coordinating lights, typography, and accents.
 
-Vite · Three.js · GSAP + ScrollTrigger · Lenis (smooth scroll) · plain JS and CSS · Python (Pillow) asset prep scripts.
+### 2. 📖 Inside Story & Hotspot Inspector (`Inside`)
+- **Pinned Scrubbing Timeline:** Powered by **GSAP ScrollTrigger**, the section pins while the user scrubs through 4 distinct story chapters:
+  - **Chapter 01:** *Built to Protect* (The Air Cushion Bag & Heat-Sealed Crimps)
+  - **Chapter 02:** *Farm-Grown Roots* (Precision Potato Slicing & Harvest)
+  - **Chapter 03:** *Micro-Dusted Rub* (Warm-Oil Seasoning Infusion)
+  - **Chapter 04:** *Acoustic Crack* (The 65dB Auditory Crunch Signature)
+- **Interactive Radar Hotspots:** 3D inspection callouts anchored over the bag highlighting foil barriers, crimp seals, and nitrogen cushion zones.
+- **Chip Storm Particle System:** A high-speed celebratory burst of 3D tumbling chips and seasoning dust transitioning between narrative sections.
 
-## Pseudocode
+### 3. 🖼️ The Flavor Wall (`Shop`)
+- **Stitched Tactile Cards:** Signature card design with custom dashed border stitching reflecting the authentic color tone of each flavor.
+- **3D Gyroscope / Mouse Tilt:** Interactive perspective tilt physics (`perspective(800px) rotateX/Y`) reacting to user cursor movement.
+- **Automated Studio Backdrop Cutouts:** Real-time canvas chroma processing removing solid studio backdrops to render crisp, transparent product cutouts.
+- **Tactile Quick-Add Action:** Instant tactile button feedback dropping bags directly into the customer's build tray.
 
-### Boot
+### 4. 📦 Build-a-Box Concept Store (`Build-a-Box`)
+- **Interactive Turntable Tray:** 3D circular turntable displaying 3 custom chosen flavor slots with individual remove triggers.
+- **Live Bundle Pricing Engine:** Real-time calculation showing instant savings:
+  $$\text{Base Total: } \$7.47 \quad\longrightarrow\quad \text{Bundle Price: } \mathbf{\$5.98} \quad (\text{Save } \$1.49)$$
+- **Slide-out Cart Drawer:** Responsive basket drawer with quantity modifiers, live subtotal updates, and tactile checkout notifications.
+
+### 5. 🪝 The Rack (`Range`)
+- **Metallic Hanging Rod:** Bags hanging from realistic chrome clips and tags (`01` through `09`).
+- **Hook Spin Physics:** Click or tap any bag on the rack to send it spinning on its hook with natural rotational damping.
+- **Precision Dial Scrubber:** Tactile horizontal radio tuner / dial with millimeter tick marks and active orange needle indicator.
+
+### 6. 🔊 Synthesized Web Audio Engine
+- **Zero MP3 Bloat:** Uses the native **Web Audio API** to procedurally synthesize sound effects in real-time:
+  - *Auditory Crisp Crunch:* Filtered white noise decay with exponential frequency ramps.
+  - *Foil Rustle:* Bandpass-filtered pink envelope simulating foil crinkles.
+  - *Tactile Snaps & Clicks:* Resonant sine tone pops for buttons and UI toggles.
+
+---
+
+## 📸 Visual Showcase
+
+<div align="center">
+
+| Hero Carousel & Dynamic Shader | Pinned Story & Hotspot Callouts |
+| :---: | :---: |
+| ![Hero Carousel](screenshots/screen-1.png) | ![Story Mode](screenshots/screen-2.png) |
+
+| The Flavor Wall (3D Tilt Cards) | Build-a-Box Turntable Concept Store |
+| :---: | :---: |
+| ![Flavor Wall](screenshots/screen-3.png) | ![Build a Box](screenshots/screen-4.png) |
+
+| The Rack (Hanging Rod & Dial) | Cinematic Preloader & Sound Synth |
+| :---: | :---: |
+| ![The Rack](screenshots/screen-6.png) | ![Visual Showcase](screenshots/screen-5.png) |
+
+</div>
+
+---
+
+## 🛠️ Architecture & Tech Stack
+
+```mermaid
+graph TD
+    A[Presentation Layer: UI / HTML / CSS Tokens] --> B[Module Layer: HeroCarousel, ScrollStory, BuildABox, TheRack]
+    B --> C[Domain Layer: Flavor Registry, CartStore, Audio Synth]
+    C --> D[Service Layer: TextureService, Canvas Cutout Pipeline]
+    D --> E[Infrastructure Layer: Three.js WebGL Engine, GSAP ScrollTrigger, Lenis]
 ```
-on load:
-    start preloader (chip storm loop)
-    create smooth scroll (Lenis), keep it stopped
-    create 3D Experience (one WebGL canvas, one scene)
-    load pack textures, HDR environment, ingredient models in parallel
-    update preloader % as assets arrive
-    when all ready:
-        preloader: season the hero chip -> burst -> reveal page
-        start Lenis, play hero intro timeline
+
+- **Framework & Bundler:** [Vite 5](https://vitejs.dev/)
+- **3D Graphics & Rendering:** [Three.js r169](https://threejs.org/) (Custom BufferGeometry, PBR MeshPhysicalMaterial, custom GLSL Shaders)
+- **Scroll & Timeline Choreography:** [GSAP 3](https://greensock.com/) + [ScrollTrigger](https://greensock.com/scrolltrigger/)
+- **Smooth Momentum Scrolling:** [Lenis](https://github.com/darkroomengineering/lenis)
+- **Audio Synthesis:** Native Web Audio API (`AudioContext`, `BiquadFilterNode`, `GainNode`)
+- **Typography:** Archivo Black, Inter, JetBrains Mono
+
+---
+
+## 📦 Getting Started & Local Development
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18.0.0 or higher recommended)
+- `npm` or `yarn`
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/SHARABUMANOJKUMAR/Lays-Crunchy-Website.git
+   cd Lays-Crunchy-Website
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open your browser and navigate to `http://localhost:3000/` (or the displayed port).
+
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+   The optimized production bundle will be output to the `dist/` folder.
+
+---
+
+## 🗂️ Project Directory Structure
+
+```text
+lays-crunchy-website/
+├── docs/
+│   ├── api.md                 # Service & Store documentation
+│   └── style-guide.md         # Locked design tokens & rules
+├── public/
+│   └── packs/                 # High-resolution Lay's packet artwork
+├── screenshots/               # Showcase screenshots
+├── src/
+│   ├── domain/
+│   │   ├── cartStore.js       # Reactive cart & 3-pack bundle state
+│   │   └── flavors.js         # 9 Flavor definitions & color palettes
+│   ├── modules/
+│   │   ├── buildABox.js       # Concept store customizer
+│   │   ├── cartDrawer.js      # Slide-out basket & checkout
+│   │   ├── flavorWall.js      # 3D tilting flavor cards
+│   │   ├── heroCarousel.js    # Arc carousel & dynamic retheming
+│   │   ├── preloader.js       # Cinematic chip seasoning sequence
+│   │   ├── scrollStory.js     # GSAP ScrollTrigger chapters & hotspots
+│   │   └── theRack.js         # Hanging rod & precision dial wheel
+│   ├── scene/
+│   │   ├── bagGeometry.js     # Procedural 3D pillow bag geometry
+│   │   ├── chipfield.js       # Floating chips & particle storm
+│   │   ├── concentricRings.js # Dynamic GLSL concentric ripple shader
+│   │   └── sceneManager.js    # Master Three.js camera & lighting engine
+│   ├── services/
+│   │   ├── audioService.js    # Web Audio API crunch & rustle synthesizer
+│   │   └── textureService.js  # High-res canvas texture & cutout pipeline
+│   ├── styles/
+│   │   ├── main.css           # Global layout & component styles
+│   │   └── tokens.css         # Centralized design system tokens
+│   └── main.js                # Application bootloader
+├── index.html                 # Semantic HTML entry
+├── package.json
+└── vite.config.js
 ```
 
-### Hero carousel
-```
-bags = one 3D bag mesh per flavor, arranged on an arc
-active = DEFAULT_FLAVOR
-each frame:
-    for each bag i:
-        offset = wrap(i - active)                 # shortest circular distance
-        target.position/rotation/scale = arcLayout(offset)
-        bag.pose = lerp(bag.pose, target, damping)
-    rings background: blend previous flavor colors -> new colors
-                      outward from the center behind a feathered front
-on arrow / drag / swipe / autoplay tick:
-    active = (active +- 1) mod N
-    retheme page (CSS vars from flavor.color / deep / glow / ink)
-    animate title lines in
-```
+---
 
-### Scroll story
-```
-one pinned ScrollTrigger timeline over the story section:
-    progress 0..1 -> chapters 1..4
-    scrub the bag rotation, camera dolly and hotspot callouts
-    swap backdrop word and chapter bar per chapter
-    after the story, a "storm" of chips crosses the screen
-```
+## 📜 License & Acknowledgments
 
-### Shop (Wall + Build-a-Box)
-```
-wall: one tall card per flavor
-    image = transparent cut-out rendered from the real 3D bag
-    on hover: ingredient pops up from behind the bag
-box:  pick 3 flavors -> each lands in a tray slot (animated)
-      basket counter and dots update; tray full -> enable checkout CTA
-```
-
-### Pack texture pipeline (offline, `tools/prep_packs.py`)
-```
-for each flavor photo:
-    if "shot":   remove white backdrop automatically
-    if "photo":  crop to the pack box
-    unwarp the pillow outline so print lies flat
-    lay out crimped seals matching the 3D bag geometry
-    export 1024x1536 jpg, art edge to edge
-```
-
-## Prompts we used
-
-The site was built iteratively with Claude Code. The prompts below are paraphrased, in the order they mattered.
-
-1. **Concept.** "Build a premium, scroll-driven Lay's website with real 3D bags, flavor theming and a cinematic loader. Make it feel tactile and alive."
-2. **Packaging.** "Use the real pack art from lays.com, with the on-pack flavor names, mapped onto 3D bags. I'll supply the images myself where the site blocks bots."
-3. **Hero.** "Keep the hero minimal. Show the real 3D ingredients printed on the center bag, two or three small ones per flavor. Use flavor-colored rings as the background."
-4. **Shop.** "Add a flavor Wall and a Build-a-Box picker between the storm section and The Rack. Put the rail after the 3-pack."
-5. **The Rack.** "Turn the Range into The Rack. Make the UI tactile, in the style of the 'Websites in 2026' reference reel."
-6. **Mobile.** "Phones and tablets should keep the laptop composition. Use a stable viewport and make sure it works on Safari and Windows."
-7. **Performance.** "Make it load fast: optimize models (meshopt, WebP), shrink the HDR, and show real progress in the loader."
-8. **Publish.** "Push the source to a private GitHub repo and make a public repo with screenshots, pseudocode, prompts and how we did it."
-
-## How we did it
-
-1. **Scaffold.** Vite project with Three.js, GSAP, Lenis and fontsource fonts (Archivo variable, Inter, JetBrains Mono, Pacifico).
-2. **One canvas, many sections.** A single fixed WebGL canvas (`scene.js`) sits behind the HTML. Scroll position and carousel state are shared values that the 3D scene reads each frame, so bags can move between sections without a second renderer.
-3. **Bags.** `bag.js` builds a pillow-shaped bag with crimped seals. `textures.js` generates fallback artwork, and the real art from `public/packs` replaces it when present.
-4. **Pack art.** `tools/prep_packs.py` cleans raw photos into flat 1024x1536 textures (background removal, unwarp, seal layout).
-5. **Ingredients.** `ingredients.js` and `chipfield.js` float small Sketchfab models and the ring background around the hero. Models are optimized with gltf-transform (512px WebP, meshopt).
-6. **Choreography.** GSAP ScrollTrigger scrubs the story chapters and Lenis gives the smooth scroll. Mobile URL-bar resizes are ignored so the timeline doesn't jump.
-7. **Shop.** `shop.js` renders cut-out product images straight from the 3D bags, so the shop always matches the hero.
-8. **Preloader.** `preloader.js` runs the chip storm, then the hero chip spins and is seasoned while assets load.
-9. **Polish.** Same layout on mobile as on laptop, a stable viewport, Safari and Windows testing, and fast-load tuning (compressed HDR, lazy extras).
-
-## Run it yourself
-
-The source is private. If you have access: `npm install`, then `npm run dev`.
-
+- **Concept & Inspiration:** Fan portfolio exploration inspired by Lay's branding and modern 3D creative web design.
+- **Trademarks & Artwork:** Lay's logo and product artwork belong to PepsiCo / Frito-Lay.
+- **Code License:** [MIT License](LICENSE) &copy; 2026 Sharabu Manoj Kumar.

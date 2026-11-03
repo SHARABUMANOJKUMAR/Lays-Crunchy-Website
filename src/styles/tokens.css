@@ -1,0 +1,62 @@
+/* Design Tokens - Lay's Crunch Experience */
+:root {
+  /* Brand Foundations */
+  --color-lays-yellow: #FFCC00;
+  --color-lays-red: #E23726;
+  --color-lays-red-hover: #C92C1D;
+  --color-lays-dark-red: #8B0E0E;
+  
+  /* Surfaces & Backgrounds */
+  --bg-cream: #EAE5DB;
+  --bg-cream-deep: #DFD8CA;
+  --bg-dark-foil: #0E1210;
+  --bg-card: #F7F5EE;
+  --bg-surface: #FFFFFF;
+  
+  /* Typography Colors */
+  --color-ink-primary: #111111;
+  --color-ink-secondary: #555555;
+  --color-ink-muted: #888888;
+  --color-ink-inverted: #FFFFFF;
+  --color-ink-inverted-muted: rgba(255, 255, 255, 0.70);
+  
+  /* Borders & Accents */
+  --border-stitch: rgba(0, 0, 0, 0.22);
+  --border-stitch-light: rgba(255, 255, 255, 0.25);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --accent-highlight: #FF6B00;
+  
+  /* Active Flavor Dynamic Tokens (Overridden dynamically in JS) */
+  --flavor-color: #C21818;
+  --flavor-deep: #4A0505;
+  --flavor-glow: #FF4B4B;
+  --flavor-ink: #FFFFFF;
+  
+  /* Typography */
+  --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* Spacing */
+  --space-unit: 8px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Corner Markers & Borders */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+  
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.18s ease;
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-theme: 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
